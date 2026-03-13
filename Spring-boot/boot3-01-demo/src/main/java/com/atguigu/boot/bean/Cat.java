@@ -1,5 +1,10 @@
 package com.atguigu.boot.bean;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties(prefix = "cat")
 public class Cat {
 
     private Long id;
@@ -20,5 +25,13 @@ public class Cat {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

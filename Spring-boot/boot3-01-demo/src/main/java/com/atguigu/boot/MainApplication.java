@@ -1,5 +1,6 @@
 package com.atguigu.boot;
 
+import com.atguigu.boot.bean.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -13,5 +14,17 @@ public class MainApplication {
 
             System.out.println(beanDefinitionName);
         }
+
+        String[] beanNamesForType = run.getBeanNamesForType(User.class);
+        for (String s : beanNamesForType) {
+            System.out.println(s);
+
+        }
+
+        Object user01 = run.getBean("HAHA");
+        Object cat = run.getBean("cat");
+//        System.out.println(user02 == user01);
+
+        System.out.println(cat);
     }
 }
