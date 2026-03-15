@@ -9,6 +9,25 @@
         <module name="boot3-02-demo-2" />
         <module name="boot3-01-demo" />
       </profile>
+      <profile name="Annotation profile for boot3-03-logging" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
+        </processorPath>
+        <module name="boot3-03-logging" />
+      </profile>
+      <profile name="Annotation profile for boot3-04-web" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.42/lombok-1.18.42.jar" />
+        </processorPath>
+        <module name="boot3-04-web" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="boot3-02-demo" target="17" />
@@ -23,6 +42,8 @@
       <module name="boot3-02-demo-2" options="-parameters" />
       <module name="boot3-02-demo.main" options="-parameters" />
       <module name="boot3-02-demo.test" options="-parameters" />
+      <module name="boot3-03-logging" options="-parameters" />
+      <module name="boot3-04-web" options="-parameters" />
     </option>
   </component>
 </project>
