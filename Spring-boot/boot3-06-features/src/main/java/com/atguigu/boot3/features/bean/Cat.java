@@ -1,18 +1,10 @@
-package com.atguigu.web.bean;
+package com.atguigu.boot3.features.bean;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@Data
-@JacksonXmlRootElement
 @Component
 @ConfigurationProperties(prefix = "cat")
-@NoArgsConstructor
-@AllArgsConstructor
 public class Cat {
 
     private Long id;

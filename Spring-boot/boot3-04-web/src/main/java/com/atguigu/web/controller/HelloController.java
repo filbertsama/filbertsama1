@@ -21,7 +21,11 @@ public class HelloController {
 //    @Bean
     @GetMapping("/cat")
     public Cat cat(){
-        return new Cat();
+
+        Cat cat = new Cat();
+        cat.setId(100L);
+        cat.setName("Tom");
+        return cat;
 
 
 
