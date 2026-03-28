@@ -40,11 +40,11 @@ public class LoginController {
         eventPublish.sendEvent(event);
 
 
-        accountService.addAccountScore(username);
-
-        couponService.sendCoupon(username);
-
-        service.recordLog(username);
+//        accountService.addAccountScore(username);
+//
+//        couponService.sendCoupon(username);
+//
+//        service.recordLog(username);
 
         return "登录成功";
     }

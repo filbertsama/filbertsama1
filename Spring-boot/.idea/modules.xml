@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/boot3-02-demo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/boot3-02-demo.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/boot3-02-demo.test.iml" filepath="$PROJECT_DIR$/.idea/modules/boot3-02-demo.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/boot3-04-web/boot3-04-web.iml" filepath="$PROJECT_DIR$/boot3-04-web/boot3-04-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/boot3-08-stater/boot3-08-stater.iml" filepath="$PROJECT_DIR$/boot3-08-stater/boot3-08-stater.iml" />
     </modules>
   </component>
 </project>
