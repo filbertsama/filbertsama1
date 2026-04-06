@@ -1,0 +1,143 @@
+version: '3.9'
+services:
+#  grafana:
+#    image: my_grafana:9.4.3
+#    container_name: grafana
+#    user: root
+#    restart: unless-stopped
+#    environment:
+#      - GF_LOG_LEVEL=debug
+#      - TZ=Asia/Shanghai
+#    ports:
+#      - 80:3000
+#    volumes:
+#      - /opt/module/docker/grafana_storage:/var/lib/grafana
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "300m"
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: always
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    networks:
+     - backend
+
+
+#  pushgateway:
+#    image: bitnami/pushgateway:latest
+#    container_name: pushgateway
+#    user: root
+#    environment:
+#      - TZ=Asia/Shanghai
+#    ports:
+#      - 9091:9091
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "300m"
+#    networks:
+#      - backend
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+#    user: root
+#    environment:
+#      - TZ=Asia/Shanghai
+    ports:
+      - 9090:9090
+    volumes:
+      - /opt/prod/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+#      - /opt/module/my-docker-compose/rules.yml:/opt/bitnami/prometheus/conf/rules.yml:ro
+      #      - /opt/module/my-docker-compose/record_rules.yml:/opt/bitnami/prometheus/conf/record_rules.yml:ro
+#      - /opt/module/docker/prometheus_storage:/opt/bitnami/prometheus/data
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "300m"
+    restart: always
+    networks:
+      - backend
+
+
+
+#  alertmanager:
+#    image: bitnami/alertmanager:latest
+#    container_name: alertmanager
+#    user: root
+#    environment:
+#      - TZ=Asia/Shanghai
+#    ports:
+#      - 9093:9093
+#    volumes:
+#      - /opt/module/my-docker-compose/alertmanager.yml:/opt/bitnami/alertmanager/conf/config.yml:ro
+#      - /opt/module/docker/alertmanager_storage:/opt/bitnami/alertmanager/data
+#    logging:
+#      driver: "json-file"
+#      options:
+#        max-size: "300m"
+
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    container_name: zookeeper
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - backend
+
+  kafka:
+    image: bitnami/kafka:3.4.0
+    container_name: kafka
+    restart: always
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - backend
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:master
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+      KAFKA_CLUSTERS_0_NAME: kafka_web_ui
+#      KAFKA_CLUSTERS_0_PROPERTIES_SECURITY_PROTOCOL: SASL_PLAINTEXT
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+#      KAFKA_CLUSTERS_0_PROPERTIES_SASL_JAAS_CONFIG: "org.apache.kafka.common.security.scram.ScramLoginModule required username=\"monitor\" password=\"Mnitor@202312!\";"
+#      KAFKA_CLUSTERS_0_PROPERTIES_SASL_MECHANISM: SCRAM-SHA-256
+#      AUTH_TYPE: "LOGIN_FORM"
+#      SPRING_SECURITY_USER_NAME: admin
+#      SPRING_SECURITY_USER_PASSWORD: gfbigdata@2023
+    restart: always
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
